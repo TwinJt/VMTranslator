@@ -1,0 +1,3 @@
+C:/Users/bayba/CLionProjects/VM Translator/cmake-build-debug/CMakeFiles/VM_Translator.dir
+C:/Users/bayba/CLionProjects/VM Translator/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/bayba/CLionProjects/VM Translator/cmake-build-debug/CMakeFiles/rebuild_cache.dir
