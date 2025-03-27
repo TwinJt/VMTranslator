@@ -6,19 +6,27 @@
 #define PARSER_H
 
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <fstream>
-#include <sstream>
+#include <map>
 
 
 class Parser {
     public:
-    Parser(std::string &fileName);
+    explicit Parser(std::string &fileName);
+    void advance();
+    bool hadMoreLines() const;
+
+    std::string commandType();
+    std::string argOne();
+    int argTwo() const;
+
 
     private:
     std::ifstream fin;
-    std::stringstream ss;
-
+    std::map<std::string, std::string> stackCommands;
+    std::string currentCommand;
 };
 
 

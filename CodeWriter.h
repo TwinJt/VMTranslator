@@ -5,10 +5,14 @@
 #ifndef CODEWRITER_H
 #define CODEWRITER_H
 
+#include <iostream>
+
 
 
 class CodeWriter {
-
+public:
+    static std::string writeArithmetic(const std::string &command);
+    std::string writePushPop(std::string command, std::string segment, int i);
 };
 
 
