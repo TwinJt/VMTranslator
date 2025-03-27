@@ -6,13 +6,20 @@
 #define CODEWRITER_H
 
 #include <iostream>
-
+#include <fstream>
+#include <string>
+#include <format>
 
 
 class CodeWriter {
 public:
-    static std::string writeArithmetic(const std::string &command);
-    std::string writePushPop(std::string command, std::string segment, int i);
+    CodeWriter(std::string &fileName);
+    void writeArithmetic(const std::string &command);
+
+    private:
+    std::string baseName;
+    std::ofstream outFile
+;
 };
 
 

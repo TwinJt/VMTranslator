@@ -1,1 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/c++ -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/VM_Translator.dir/main.cpp.o CMakeFiles/VM_Translator.dir/Parser.cpp.o CMakeFiles/VM_Translator.dir/CodeWriter.cpp.o -o VM_Translator
