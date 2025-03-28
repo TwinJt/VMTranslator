@@ -3,72 +3,74 @@
 //
 
 #include "Parser.h"
-#include <string_view>
 
-Parser::Parser(const std::string &fileName) {
+
+
+Parser::Parser(std::string &fileName) {
     fin.open(fileName);
 
     if (!fin.is_open()) {
         std::cerr << "Error opening file " << fileName << std::endl;
     }
 
-
 }
+
 
 void Parser::advance() {
     std::string line;
 
-    bool commandFound = false;
-
-    while (!commandFound && std::getline(fin, line)) {
-        if (const unsigned long long comment = line.find("//"); comment != std::string_view::npos) {
-            line.erase(comment, line.length() - comment );
+    if (std::getline(fin, line))
+    {
+        if (const size_t whitespace = line.find_first_not_of(" \t\n\r");whitespace != std::string::npos)
+        {
+            line  = line.substr(whitespace);
         }
-        commandFound = !line.empty();
+
+        if (const size_t commentPos = line.find("//"); commentPos != std::string::npos)
+        {
+            line.resize(commentPos);
+        }
+        currentCommand = line;
     }
-    currentCommand = line;
 }
+
 
 bool Parser::hadMoreLines() const {
-    if (!fin.eof()) {
-        return true;
-    }
-    return false;
+    return !fin.eof();
 }
 
-command_Types Parser::commandType()
+std::string Parser::commandType() const
 {
-    typeStart = currentCommand.find_first_not_of(" \t");
-    typeEnd = currentCommand.find_first_of(" \t", typeStart);
-
-    command = currentCommand.substr(typeStart, typeEnd - typeStart);
-    if (command != "push")
+    if (!currentCommand.starts_with("push"))
     {
-        if (command != "pop")
+        if (!currentCommand.starts_with("pop"))
         {
-            return C_ARITHMETIC;
+            return "C_ARITHMETIC";
         }
-        return C_POP;
+        return "C_POP";
     }
-    return C_PUSH;
+    return "C_PUSH";
 }
 
-std::string Parser::arg1()
+std::string Parser::arg1() const
 {
-    if (const int currentType = commandType(); currentType != C_ARITHMETIC)
+
+
+
+    if (commandType() == "C_ARITHMETIC")
     {
-        segmentStart = currentCommand.find_first_not_of(" \t", typeEnd);
-        segmentEnd = currentCommand.find_first_of(" \t", segmentStart);
-        segment = currentCommand.substr(segmentStart, segmentEnd - segmentStart);
-        return segment;
+        return currentCommand.substr(pos1);
     }
-    return command;
+
+    if (commandType() == "C_PUSH" || commandType() == "C_POP")
+    {
+        pos1 = currentCommand.find(' ', pos1);
+    }
+    return "Invalid!";
 }
 
-int Parser::arg2()
+std::string Parser::arg2()
 {
-    indexStart = currentCommand.find_first_not_of(" \t", segmentEnd);
-    indexEnd = currentCommand.find_first_of(" \t", indexStart);
-    index = currentCommand.substr(indexStart, indexEnd - indexStart);
-    return stoi(index);
+
+    return "";
 }

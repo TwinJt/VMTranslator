@@ -9,38 +9,23 @@
 #include <sstream>
 #include <string>
 #include <fstream>
-enum command_Types
+
+class Parser
 {
-    C_ARITHMETIC,
-    C_PUSH,
-    C_POP,
-};
-
-class Parser {
-    public:
-    explicit Parser(const std::string &fileName);
+public:
+    Parser(std::string &fileName);
     void advance();
+
     bool hadMoreLines() const;
-    command_Types commandType();
-    std::string arg1();
-    int arg2();
+    std::string commandType() const;
+
+    std::string arg1() const;
+    std::string arg2();
 
 
-    private:
+private:
     std::ifstream fin;
     std::string currentCommand;
-
-    unsigned long long typeStart{};
-    unsigned long long typeEnd{};
-    std::string command;
-
-    unsigned long long segmentStart{};
-    unsigned long long segmentEnd{};
-    std::string segment;
-
-    unsigned long long indexStart{};
-    unsigned long long indexEnd{};
-    std::string index;
 };
 
 

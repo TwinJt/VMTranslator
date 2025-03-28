@@ -10,16 +10,19 @@
 #include <string>
 #include <format>
 
+#include "Parser.h"
+
 
 class CodeWriter {
 public:
-    CodeWriter(std::string &fileName);
+    explicit CodeWriter(std::string &fileName);
     void writeArithmetic(const std::string &command);
+    void writePushPop( std::string& segment, std::string& i);
 
-    private:
+private:
     std::string baseName;
-    std::ofstream outFile
-;
+    std::ofstream outFile;
+    std::string line_Num;
 };
 
 

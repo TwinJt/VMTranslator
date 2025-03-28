@@ -5,7 +5,6 @@
 #include "CodeWriter.h"
 
 
-
 CodeWriter::CodeWriter(std::string& fileName)
 {
     const unsigned long long slash = fileName.find_last_of("/\\");
@@ -20,15 +19,35 @@ CodeWriter::CodeWriter(std::string& fileName)
 
     outFile = std::ofstream(std::format("{}.asm", baseName));
 
-    outFile << "//SP
-    "\n@256
+    outFile << "//SP"
+    "\n@256"
     "\nD=A"
 
     "\n@SP"
     "\nM=D"
     "\n";
 }
+void CodeWriter::writePushPop(command_Types, std::string &segment, std::string &i)
+{
+    if constexpr (C_PUSH)
+    {
+        std::cout << segment;
+        if (segment == "constant")
+        {
+            outFile << std::format("//push {} {}", segment, i);
+            outFile << std::format("\n@{}", i);
+            outFile << "\nD=A"
 
+            "\n@SP"
+            "\nA=M"
+            "\nM=D"
+
+            "\n@SP"
+            "\nM=M+1"
+            "\n";
+        }
+    }
+}
 void CodeWriter::writeArithmetic(const std::string &command)
 {
     if (command == "add")
@@ -72,11 +91,9 @@ void CodeWriter::writeArithmetic(const std::string &command)
         "\nA=M"
         "\nD=M"
         "\nA=A-1"
-        "\nD=D-M
-
-        "\n@EQ"
+        "\nD=D-M"
+        "\n@EQ_{}"
         "\nD;JEQ"
-
         "\n@END"
         "\n0;JMP"
 
@@ -168,8 +185,8 @@ void CodeWriter::writeArithmetic(const std::string &command)
     if (command == "not")
     {
         outFile << "//not"
-        "\n@SP
-        "\nA=M-1
+        "\n@SP"
+        "\nA=M-1"
         "\nM=!M"
         "\n";
     }
