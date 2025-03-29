@@ -10,7 +10,7 @@ Parser::Parser(std::string &fileName) {
     fin.open(fileName);
 
     if (!fin.is_open()) {
-        std::cerr << "Error opening file " << fileName << std::endl;
+        std::cout << "Error opening file " << fileName << std::endl;
     }
 
 }
@@ -30,6 +30,7 @@ void Parser::advance() {
         {
             line.resize(commentPos);
         }
+
         currentCommand = line;
     }
 }
@@ -39,38 +40,35 @@ bool Parser::hadMoreLines() const {
     return !fin.eof();
 }
 
-std::string Parser::commandType() const
+commands Parser::commandType() const
 {
     if (!currentCommand.starts_with("push"))
     {
         if (!currentCommand.starts_with("pop"))
         {
-            return "C_ARITHMETIC";
+            return C_ARITHMETIC;
         }
-        return "C_POP";
+        return C_POP;
     }
-    return "C_PUSH";
+    return C_PUSH;
 }
 
 std::string Parser::arg1() const
 {
-
-
-
-    if (commandType() == "C_ARITHMETIC")
+    if (commandType() == C_ARITHMETIC)
     {
-        return currentCommand.substr(pos1);
+        return currentCommand.substr(0, currentCommand.find_first_of(' '));
+
     }
 
-    if (commandType() == "C_PUSH" || commandType() == "C_POP")
+    if (commandType() == C_PUSH || commandType() == C_POP)
     {
-        pos1 = currentCommand.find(' ', pos1);
+        return currentCommand.substr(currentCommand.find_last_not_of(' ') + 2, currentCommand.find_first_of(' '));
     }
     return "Invalid!";
 }
 
 std::string Parser::arg2()
 {
-
-    return "";
+    return currentCommand.substr(currentCommand.find_last_of(' ') + 1, currentCommand.find(' '));
 }

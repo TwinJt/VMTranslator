@@ -1,0 +1,6 @@
+push local 2
+add
+sub
+eq
+lt
+

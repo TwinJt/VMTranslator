@@ -6,18 +6,25 @@
 #define PARSER_H
 
 #include <iostream>
-#include <sstream>
+#include <stdio.h>
 #include <string>
 #include <fstream>
+
+enum commands
+{
+    C_PUSH,
+    C_POP,
+    C_ARITHMETIC
+};
 
 class Parser
 {
 public:
-    Parser(std::string &fileName);
+    explicit Parser(std::string &fileName);
     void advance();
 
     bool hadMoreLines() const;
-    std::string commandType() const;
+    commands commandType() const;
 
     std::string arg1() const;
     std::string arg2();

@@ -1,12 +1,20 @@
 #include "Parser.h"
-
 int main() {
-    std::string fileName = R"(C:\Users\bayba\CLionProjects\VM Translator\vmtest.vm)";
+    std::string fileName = "C:\\Users\\bayba\\CLionProjects\\VM Translator\\SimpleAdd.vm";
     Parser parser(fileName);
     while (parser.hadMoreLines())
     {
         parser.advance();
-        std::cout << parser.arg1() << std::endl;
+
+        if (parser.commandType() == C_ARITHMETIC)
+        {
+            std::cout << parser.arg1() << std::endl;
+        }
+        else if (parser.commandType() == C_PUSH || parser.commandType() == C_POP)
+        {
+            std::cout << parser.arg1() << std::endl;
+            std::cout << parser.arg2() << std::endl;
+        }
     }
     return 0;
 }

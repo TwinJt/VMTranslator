@@ -61,6 +61,12 @@ build CMakeFiles/VM_Translator.dir/Parser.cpp.obj: CXX_COMPILER__VM_Translator_u
   OBJECT_DIR = CMakeFiles\VM_Translator.dir
   OBJECT_FILE_DIR = CMakeFiles\VM_Translator.dir
 
+build CMakeFiles/VM_Translator.dir/CodeWriter.cpp.obj: CXX_COMPILER__VM_Translator_unscanned_Debug C$:/Users/bayba/CLionProjects/VM$ Translator/CodeWriter.cpp || cmake_object_order_depends_target_VM_Translator
+  DEP_FILE = CMakeFiles\VM_Translator.dir\CodeWriter.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\VM_Translator.dir
+  OBJECT_FILE_DIR = CMakeFiles\VM_Translator.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target VM_Translator
@@ -69,7 +75,7 @@ build CMakeFiles/VM_Translator.dir/Parser.cpp.obj: CXX_COMPILER__VM_Translator_u
 #############################################
 # Link the executable VM_Translator.exe
 
-build VM_Translator.exe: CXX_EXECUTABLE_LINKER__VM_Translator_Debug CMakeFiles/VM_Translator.dir/main.cpp.obj CMakeFiles/VM_Translator.dir/Parser.cpp.obj
+build VM_Translator.exe: CXX_EXECUTABLE_LINKER__VM_Translator_Debug CMakeFiles/VM_Translator.dir/main.cpp.obj CMakeFiles/VM_Translator.dir/Parser.cpp.obj CMakeFiles/VM_Translator.dir/CodeWriter.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\VM_Translator.dir

@@ -5,4 +5,6 @@ set(CMAKE_CXX_STANDARD 26)
 
 add_executable(VM_Translator main.cpp
         Parser.cpp
-        Parser.h)
+        Parser.h
+        CodeWriter.cpp
+        CodeWriter.h)
